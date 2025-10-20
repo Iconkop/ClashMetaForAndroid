@@ -10,17 +10,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: true
 
-      # 如果想始终更新到 Mihomo 最新分支，保留此段
-      - name: Update Mihomo core (Alpha branch)
+      # ✅ 替换 Mihomo 源码为最新版本
+      - name: Fetch latest Mihomo core (Alpha)
         run: |
+          rm -rf core/src/foss/golang/clash
+          git clone --depth=1 -b alpha https://github.com/MetaCubeX/mihomo.git core/src/foss/golang/clash
+          echo "✅ Cloned Mihomo alpha branch:"
           cd core/src/foss/golang/clash
-          git fetch origin
-          git checkout alpha || git checkout -b alpha origin/alpha
-          git pull origin alpha
-          git log -1
+          git log -1 --oneline
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -70,6 +68,6 @@ jobs:
           files: app/build/outputs/apk/meta/release/*.apk
           body: |
             Auto-built Clash Mate (arm64)
-            Mihomo core branch: Alpha
+            Mihomo branch: Alpha
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
