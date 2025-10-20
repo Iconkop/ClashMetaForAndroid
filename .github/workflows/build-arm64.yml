@@ -16,8 +16,8 @@ jobs:
       - name: Fetch latest Mihomo core (Aplha)
         run: |
           rm -rf core/src/foss/golang/clash
-          git clone --depth=1 -b Aplha https://github.com/MetaCubeX/mihomo.git core/src/foss/golang/clash
-          echo "✅ Cloned Mihomo Aplha branch:"
+          git clone --depth=1 -b Alpha https://github.com/MetaCubeX/mihomo.git core/src/foss/golang/clash
+          echo "✅ Cloned Mihomo Alpha branch:"
           cd core/src/foss/golang/clash
           git log -1 --oneline
 
